@@ -92,7 +92,7 @@ class SSD1306 {
 		this.command(Buffer.from([this.SET_PRECHARGE, 0xf1]));
 		this.command(Buffer.from([this.SET_VCOM_DETECT, 0x40]));
 		this.command(Buffer.from([this.DISPLAY_ALL_ON_RESUME]));
-		this.command(Buffer.from([this.NORMAL_DISPLAY]));
+		this.command(Buffer.from([this.NORMAL_DISPLAY]));	
 		this.command(Buffer.from([this.DISPLAY_ON]));
 	}
 
@@ -110,9 +110,10 @@ class SSD1306 {
 
 	draw() {
 		let pageCount = this._screenHeight / 8;
-		this.command(Buffer.from([this.SET_MEMORY_MODE, this.MEMORY_MODE_VERT]));
+		this.command(Buffer.from([this.SET_MEMORY_MODE, this.MEMORY_MODE_HORIZ]));
 		this.command(Buffer.from([this.SET_PAGE_ADDRESS, 0x00, 0x07]));
 		this.command(Buffer.from([this.SET_COL_ADDRESS, 0x00, 0x7f]));
+		this.command(Buffer.from([this.DISPLAY_ON]));
 		this.data(this._screenBuffer);
 	}
 
