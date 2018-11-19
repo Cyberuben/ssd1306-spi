@@ -1,45 +1,45 @@
 const rpio = require("rpio");
 
 class SSD1306 {
-	EXTERNAL_VCC   = 0x1
-		SWITCH_CAP_VCC = 0x2
-
-		SET_LOW_COLUMN        = 0x00
-		SET_HIGH_COLUMN       = 0x10
-		SET_MEMORY_MODE       = 0x20
-		SET_COL_ADDRESS       = 0x21
-		SET_PAGE_ADDRESS      = 0x22
-		RIGHT_HORIZ_SCROLL    = 0x26
-		LEFT_HORIZ_SCROLL     = 0x27
-		VERT_AND_RIGHT_HORIZ_SCROLL = 0x29
-		VERT_AND_LEFT_HORIZ_SCROLL = 0x2A
-		DEACTIVATE_SCROLL     = 0x2E
-		ACTIVATE_SCROLL       = 0x2F
-		SET_START_LINE        = 0x40
-		SET_CONTRAST          = 0x81
-		CHARGE_PUMP           = 0x8D
-		SEG_REMAP             = 0xA0
-		SET_VERT_SCROLL_AREA  = 0xA3
-		DISPLAY_ALL_ON_RESUME = 0xA4
-		DISPLAY_ALL_ON        = 0xA5
-		NORMAL_DISPLAY        = 0xA6
-		INVERT_DISPLAY        = 0xA7
-		DISPLAY_OFF           = 0xAE
-		DISPLAY_ON            = 0xAF
-		COM_SCAN_INC          = 0xC0
-		COM_SCAN_DEC          = 0xC8
-		SET_DISPLAY_OFFSET    = 0xD3
-		SET_COM_PINS          = 0xDA
-		SET_VCOM_DETECT       = 0xDB
-		SET_DISPLAY_CLOCK_DIV = 0xD5
-		SET_PRECHARGE         = 0xD9
-		SET_MULTIPLEX         = 0xA8
-
-		MEMORY_MODE_HORIZ = 0x00
-		MEMORY_MODE_VERT  = 0x01
-		MEMORY_MODE_PAGE  = 0x02
-
 	constructor ({ width, height, resetPin, dcPin, spiChip, rpio }) {
+		this.EXTERNAL_VCC   = 0x1
+		this.SWITCH_CAP_VCC = 0x2
+
+		this.SET_LOW_COLUMN        = 0x00
+		this.SET_HIGH_COLUMN       = 0x10
+		this.SET_MEMORY_MODE       = 0x20
+		this.SET_COL_ADDRESS       = 0x21
+		this.SET_PAGE_ADDRESS      = 0x22
+		this.RIGHT_HORIZ_SCROLL    = 0x26
+		this.LEFT_HORIZ_SCROLL     = 0x27
+		this.VERT_AND_RIGHT_HORIZ_SCROLL = 0x29
+		this.VERT_AND_LEFT_HORIZ_SCROLL = 0x2A
+		this.DEACTIVATE_SCROLL     = 0x2E
+		this.ACTIVATE_SCROLL       = 0x2F
+		this.SET_START_LINE        = 0x40
+		this.SET_CONTRAST          = 0x81
+		this.CHARGE_PUMP           = 0x8D
+		this.SEG_REMAP             = 0xA0
+		this.SET_VERT_SCROLL_AREA  = 0xA3
+		this.DISPLAY_ALL_ON_RESUME = 0xA4
+		this.DISPLAY_ALL_ON        = 0xA5
+		this.NORMAL_DISPLAY        = 0xA6
+		this.INVERT_DISPLAY        = 0xA7
+		this.DISPLAY_OFF           = 0xAE
+		this.DISPLAY_ON            = 0xAF
+		this.COM_SCAN_INC          = 0xC0
+		this.COM_SCAN_DEC          = 0xC8
+		this.SET_DISPLAY_OFFSET    = 0xD3
+		this.SET_COM_PINS          = 0xDA
+		this.SET_VCOM_DETECT       = 0xDB
+		this.SET_DISPLAY_CLOCK_DIV = 0xD5
+		this.SET_PRECHARGE         = 0xD9
+		this.SET_MULTIPLEX         = 0xA8
+
+		this.MEMORY_MODE_HORIZ = 0x00
+		this.MEMORY_MODE_VERT  = 0x01
+		this.MEMORY_MODE_PAGE  = 0x02
+
 		let options = {
 			gpiomem: false,
 			mapping: "gpio",
