@@ -74,7 +74,7 @@ class SSD1306 {
 		this.command(Buffer.from([this.SET_DISPLAY_CLOCK_DIV, 128]));
 
 		// Setup the right screen size
-		if (this.height === 64) {
+		if (this._screenHeight === 64) {
 			this.command(Buffer.from([this.SET_MULTIPLEX, 0x3F]));
 			this.command(Buffer.from([this.SET_COM_PINS, 0x12]));
 		} else {
@@ -103,8 +103,8 @@ class SSD1306 {
 	draw() {
 		let pageCount = this._screenHeight / 8;
 		this.command(Buffer.from([this.SET_MEMORY_MODE, this.MEMORY_MODE_VERT]));
-		this.command(Buffer.from([this.SET_PAGE_ADDRESS, 0, pageCount - 1]));
-		this.command(Buffer.from([this.SET_COL_ADDRESS, 0, this._screenWidth - 1]));
+		this.command(Buffer.from([this.SET_PAGE_ADDRESS, 0x00, 0x07]));
+		this.command(Buffer.from([this.SET_COL_ADDRESS, 0x00, 0x7f]));
 		this.data(this._screenBuffer);
 	}
 
