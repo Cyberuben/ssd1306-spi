@@ -55,20 +55,6 @@ class SSD1306 {
 		this._rpioOptions = options;
 
 		this._screenBuffer = Buffer.alloc((width * height) / 8);
-
-		for (let i = 0; i < this._screenBuffer.length; i++) {
-			switch (i % 3) {
-				case 0:
-					this._screenBuffer[i] = 0b01001001;
-				break;
-				case 1:
-					this._screenBuffer[i] = 0b10010010;
-				break;
-				case 2:
-					this._screenBuffer[i] = 0b00100100;
-				break;
-			}
-		}
 	}
 
 	init() {
