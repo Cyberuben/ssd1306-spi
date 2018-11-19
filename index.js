@@ -100,6 +100,14 @@ class SSD1306 {
 		this._screenBuffer.fill(0);
 	}
 
+	invertDisplay() {
+		this.command(Buffer.from([this.INVERT_DISPLAY]));
+	}
+
+	normalDisplay() {
+		this.command(Buffer.from([this.NORMAL_DISPLAY]));
+	}
+
 	draw() {
 		let pageCount = this._screenHeight / 8;
 		this.command(Buffer.from([this.SET_MEMORY_MODE, this.MEMORY_MODE_VERT]));
