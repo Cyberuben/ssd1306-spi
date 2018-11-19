@@ -1,0 +1,28 @@
+{
+  "name": "ssd1306-spi",
+  "version": "1.0.0",
+  "description": "Library to control the SSD1306 OLED screen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Cyberuben/ssd1306-spi.git"
+  },
+  "keywords": [
+    "ssd1306",
+    "adafruit",
+    "oled",
+    "spi"
+  ],
+  "author": "Ruben Rutten <ruben@rubenrutten.nl>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cyberuben/ssd1306-spi/issues"
+  },
+  "dependencies": {
+    "rpio": "^0.9.23"
+  },
+  "homepage": "https://github.com/Cyberuben/ssd1306-spi#readme"
+}
