@@ -54,7 +54,7 @@ class SSD1306 {
 
 		this._rpioOptions = options;
 
-		this._screenBuffer = Buffer.alloc((width * height) / 8);
+		this._screenBuffer = Buffer.alloc((width * height) / 8).fill(0x00);
 	}
 
 	init() {
@@ -68,10 +68,10 @@ class SSD1306 {
 		rpio.open(this._dcPin, rpio.OUTPUT, rpio.LOW);
 
 		// Init the OLED screen
-		rpio.sleep(0.001);
+		rpio.msleep(0.01);
 		this.reset();
 		this.command(Buffer.from([this.DISPLAY_OFF]));
-		this.command(Buffer.from([this.SET_DISPLAY_CLOCK_DIV, 128]));
+		this.command(Buffer.from([this.SET_DISPLAY_CLOCK_DIV, 0x80]));
 
 		// Setup the right screen size
 		if (this._screenHeight === 64) {
@@ -92,7 +92,7 @@ class SSD1306 {
 		this.command(Buffer.from([this.SET_PRECHARGE, 0xf1]));
 		this.command(Buffer.from([this.SET_VCOM_DETECT, 0x40]));
 		this.command(Buffer.from([this.DISPLAY_ALL_ON_RESUME]));
-		this.command(Buffer.from([this.NORMAL_DISPLAY]));	
+		this.command(Buffer.from([this.NORMAL_DISPLAY]));
 		this.command(Buffer.from([this.DISPLAY_ON]));
 	}
 
@@ -119,7 +119,7 @@ class SSD1306 {
 
 	reset() {
 		rpio.write(this._resetPin, rpio.LOW);
-		rpio.sleep(0.01);
+		rpio.msleep(10);
 		rpio.write(this._resetPin, rpio.HIGH);
 	}
 
@@ -130,6 +130,16 @@ class SSD1306 {
 	data(buffer) {
 		// Set DC to high to write data
 		rpio.write(this._dcPin, rpio.HIGH);
+
+		/*let maxBytes = 255;
+		let start = 0;
+		let remaining = buffer.length;
+		while (remaining > 0) {
+			let amount = (remaining > maxBytes ? maxBytes : remaining);
+			remaining -= amount;
+			rpio.spiWrite(buffer.slice(start, start + amount), amount);
+			start += amount;
+		}*/
 
 		rpio.spiWrite(buffer, buffer.length);
 
