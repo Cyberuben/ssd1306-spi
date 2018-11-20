@@ -109,12 +109,26 @@ class SSD1306 {
 	}
 
 	draw() {
-		let pageCount = this._screenHeight / 8;
 		this.command(Buffer.from([this.SET_MEMORY_MODE, this.MEMORY_MODE_HORIZ]));
 		this.command(Buffer.from([this.SET_PAGE_ADDRESS, 0x00, 0x07]));
 		this.command(Buffer.from([this.SET_COL_ADDRESS, 0x00, 0x7f]));
 		this.command(Buffer.from([this.DISPLAY_ON]));
 		this.data(this._screenBuffer);
+	}
+
+	drawPixel(x, y, on) {
+		if (x < 0 || x > this._screenWidth - 1 || y < 0 || y > this._screenHeight - 1) {
+			return;
+		}
+
+		let page = Math.floor(y / 8);
+		let offset = y % 8;
+		
+		if (on) {
+			this._screenBuffer[page * this._screenWidth + x] |= (0x1 << offset);
+		} else {
+			this._screenBuffer[page * this._screenWidth + x] &= ((0x1 << offset) ^ 0xff);
+		}
 	}
 
 	reset() {
@@ -130,16 +144,6 @@ class SSD1306 {
 	data(buffer) {
 		// Set DC to high to write data
 		rpio.write(this._dcPin, rpio.HIGH);
-
-		/*let maxBytes = 255;
-		let start = 0;
-		let remaining = buffer.length;
-		while (remaining > 0) {
-			let amount = (remaining > maxBytes ? maxBytes : remaining);
-			remaining -= amount;
-			rpio.spiWrite(buffer.slice(start, start + amount), amount);
-			start += amount;
-		}*/
 
 		rpio.spiWrite(buffer, buffer.length);
 
